@@ -8,7 +8,7 @@ function App() {
       <div className="mt-8 mb-6 px-[5%]">
         <CarosuelContainer />
       </div>
-      <div className="px-[10%]">
+      <div className="md:px-[10%] px-4">
         <CoinInfo />
       </div>
     </>

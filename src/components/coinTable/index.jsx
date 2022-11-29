@@ -53,7 +53,7 @@ const CoinTable = ({ loading, data }) => {
               {theads.map((x, i) => (
                 <th
                   key={i}
-                  className={`font-semibold capitalize text-xs md:px-6 px-4 py-4  ${
+                  className={`font-semibold capitalize text-xs md:px-6 px-2 py-4  ${
                     i === 0 ? "text-left" : "text-right"
                   }`}
                 >
@@ -76,14 +76,14 @@ const CoinTable = ({ loading, data }) => {
                     {i + 1}
                   </td>
                   }
-                  <td className="row-padding">
+                  <td className="py-7 md:px-6 px-4">
                     <NameOfCoin name={x?.name} sym={x?.symbol} src={x?.image} />
                   </td>
-                  <td className="font-medium row-padding">
+                  <td className="font-medium md:px-6 px-4">
                     ${x?.current_price.toLocaleString()}
                   </td>
                   <td>
-                    <div className="font-semibold  text-[13px] text-decreaseRed flex items-center row-padding">
+                    <div className="font-semibold  text-[13px] text-decreaseRed flex items-center md:px-6 px-4">
                       <img
                         src={downArrowRed}
                         className="inline mr-1"
@@ -95,7 +95,7 @@ const CoinTable = ({ loading, data }) => {
                   {!isMobile && (
                     <>
                       <td>
-                        <div className="font-semibold flex items-center text-[13px] text-increaseGreen  row-padding">
+                        <div className="font-semibold flex items-center text-[13px] text-increaseGreen  md:px-6 px-4">
                           <img
                             src={upArrowGreen}
                             className="inline mr-1"
@@ -104,11 +104,11 @@ const CoinTable = ({ loading, data }) => {
                           <span>0.65%</span>
                         </div>
                       </td>
-                      <td className="text-sm font-medium row-padding">
+                      <td className="text-sm font-medium md:px-6 px-4">
                         ${x?.market_cap.toLocaleString()}
                       </td>
 
-                      <td className="row-padding">
+                      <td className="md:px-6 px-4">
                         <div className="flex flex-col">
                           <span className="text-sm font-medium">
                             $51,502,989,963,439
@@ -119,7 +119,7 @@ const CoinTable = ({ loading, data }) => {
                         </div>
                       </td>
 
-                      <td className="row-padding">
+                      <td className="md:px-6 px-4">
                         <div className="flex flex-col gap-y-1">
                           <span className="text-sm text-right font-medium">
                             {x?.circulating_supply}BTC
