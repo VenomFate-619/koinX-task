@@ -34,9 +34,12 @@ const NameOfCoin = ({ name, sym, src }) => {
   );
 };
 
-const CoinTable = ({ loading, data }) => {
+const CoinTable = ({ loading, data , currentPage , perPage }) => {
   const isMobile = useMobileScreen()
   theads = isMobile ? theads.slice(0,3) : theads
+
+  let skip = Number(perPage) * ( Number(currentPage) - 1);
+
   return (
     <>
       <div className="mt-5">
@@ -44,12 +47,11 @@ const CoinTable = ({ loading, data }) => {
           <thead className="border-b">
             <tr>
               <th></th>
-              {
-                !isMobile &&
-              <th className="font-semibold capitalize text-xs text-center px-6 py-4">
-                #
-              </th>
-              }
+              {!isMobile && (
+                <th className="font-semibold capitalize text-xs text-center px-6 py-4">
+                  #
+                </th>
+              )}
               {theads.map((x, i) => (
                 <th
                   key={i}
@@ -70,12 +72,11 @@ const CoinTable = ({ loading, data }) => {
                   <td className="">
                     <img src={starIcon} className="max-w-none" alt="star" />
                   </td>
-                  {
-                    !isMobile && 
-                  <td className="font-medium text-[15px] text-secondary text-center ">
-                    {i + 1}
-                  </td>
-                  }
+                  {!isMobile && (
+                    <td className="font-medium text-[15px] text-secondary text-center ">
+                      {skip+ i + 1}
+                    </td>
+                  )}
                   <td className="py-7 md:px-6 px-4">
                     <NameOfCoin name={x?.name} sym={x?.symbol} src={x?.image} />
                   </td>

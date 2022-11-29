@@ -13,12 +13,12 @@ const option = [
 ];
 
 const CoinInfo = () => {
-    const { data, handlePage, loading, perPage, setPerPage } =
-      useFetchPagination();
+  const { data, handlePage, loading, perPage, setPerPage, currentPage } =
+    useFetchPagination();
 
-    const handlePerPage =event => {
+  const handlePerPage = (event) => {
     setPerPage(event.target.value);
-    handlePage(undefined , event.target.value)
+    handlePage(currentPage, event.target.value);
   };
 
   return (
@@ -54,28 +54,32 @@ const CoinInfo = () => {
             </select>
           </div>
         </div>
-        <CoinTable data={data} loading={loading} />
+        <CoinTable
+          data={data}
+          loading={loading}
+          currentPage={currentPage}
+          perPage={perPage}
+        />
       </div>
-      <div className="flex justify-center" >
-
-      <ReactPaginate
-        nextLabel={<img src={rightArrow} alt="right" />}
-        previousLabel={<img src={leftArrow} alt="left" />}
-        breakLabel="..."
-        pageRangeDisplayed={2}
-        marginPagesDisplayed={2}
-        pageCount={10} // api not returning total number of pages
-        onPageChange={({ selected }) => {
-          handlePage(selected + 1);
-        }}
-        containerClassName="flex md:justify-end justify-center space-x-2  font-bold text-sm mt-10 mb-12"
-        pageClassName="w-8 h-8 rounded border flex justify-center items-center"
-        activeClassName="border-[#0052FE] text-[#0052FE]"
-        breakClassName="flex items-center justify-center w-8 h-8  rounded border"
-        nextClassName="flex items-center justify-center w-8 h-8  rounded border  text-secondary"
-        previousClassName="flex items-center justify-center w-8 h-8 rounded  border  text-secondary"
-        disabledClassName="bg-[#919EAB] opacity-50"
-      />
+      <div className="flex justify-center">
+        <ReactPaginate
+          nextLabel={<img src={rightArrow} alt="right" />}
+          previousLabel={<img src={leftArrow} alt="left" />}
+          breakLabel="..."
+          pageRangeDisplayed={2}
+          marginPagesDisplayed={2}
+          pageCount={10} // api not returning total number of pages
+          onPageChange={({ selected }) => {
+            handlePage(selected + 1);
+          }}
+          containerClassName="flex md:justify-end justify-center space-x-2  font-bold text-sm mt-10 mb-12"
+          pageClassName="w-8 h-8 rounded border flex justify-center items-center"
+          activeClassName="border-[#0052FE] text-[#0052FE]"
+          breakClassName="flex items-center justify-center w-8 h-8  rounded border"
+          nextClassName="flex items-center justify-center w-8 h-8  rounded border  text-secondary"
+          previousClassName="flex items-center justify-center w-8 h-8 rounded  border  text-secondary"
+          disabledClassName="bg-[#919EAB] opacity-50"
+        />
       </div>
     </>
   );
