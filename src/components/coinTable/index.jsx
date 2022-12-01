@@ -34,16 +34,18 @@ const NameOfCoin = ({ name, sym, src }) => {
   );
 };
 
-const CoinTable = ({ loading, data , currentPage , perPage }) => {
-  const isMobile = useMobileScreen()
-  theads = isMobile ? theads.slice(0,3) : theads
+const CoinTable = ({ loading, data, currentPage, perPage }) => {
+  const isMobile = useMobileScreen();
+  theads = isMobile ? theads.slice(0, 3) : theads;
 
-  let skip = Number(perPage) * ( Number(currentPage) - 1);
+  let skip = Number(perPage) * (Number(currentPage) - 1);
+  const day7 = (x) => Number(x?.price_change_percentage_7d_in_currency);
+  const hour24 = (x) => Number(x?.price_change_percentage_24h_in_currency);
 
   return (
     <>
       <div className="mt-5">
-        <table class="w-full">
+        <table className="w-full">
           <thead className="border-b">
             <tr>
               <th></th>
@@ -74,7 +76,7 @@ const CoinTable = ({ loading, data , currentPage , perPage }) => {
                   </td>
                   {!isMobile && (
                     <td className="font-medium text-[15px] text-secondary text-center ">
-                      {skip+ i + 1}
+                      {skip + i + 1}
                     </td>
                   )}
                   <td className="py-7 md:px-6 px-4">
@@ -84,25 +86,37 @@ const CoinTable = ({ loading, data , currentPage , perPage }) => {
                     ${x?.current_price.toLocaleString()}
                   </td>
                   <td>
-                    <div className="font-semibold  text-[13px] text-decreaseRed flex items-center md:px-6 px-4">
+                    <div
+                      className={`font-semibold  text-[13px] flex items-center md:px-6 px-4 ${
+                        hour24(x) > 0
+                          ? "text-increaseGreen"
+                          : "text-decreaseRed"
+                      }`}
+                    >
                       <img
-                        src={downArrowRed}
+                        src={hour24(x) > 0 ? upArrowGreen : downArrowRed}
                         className="inline mr-1"
                         alt="star"
                       />
-                      <span>0.65%</span>
+                      <span>{Math.abs(parseFloat(hour24(x)).toFixed(2))}</span>
                     </div>
                   </td>
                   {!isMobile && (
                     <>
                       <td>
-                        <div className="font-semibold flex items-center text-[13px] text-increaseGreen  md:px-6 px-4">
+                        <div
+                          className={`font-semibold flex items-center text-[13px] md:px-6 px-4 ${
+                            day7(x) > 0
+                              ? "text-increaseGreen"
+                              : "text-decreaseRed"
+                          }`}
+                        >
                           <img
-                            src={upArrowGreen}
+                            src={day7(x) > 0 ? upArrowGreen : downArrowRed}
                             className="inline mr-1"
                             alt="star"
                           />
-                          <span>0.65%</span>
+                          <span>{Math.abs(parseFloat(day7(x)).toFixed(2))}</span>
                         </div>
                       </td>
                       <td className="text-sm font-medium md:px-6 px-4">
